@@ -120,6 +120,79 @@
             display: none;
         }
 
+        /* অপারেশন পাসওয়ার্ড মডাল */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background-color: var(--card-color);
+            margin: 15% auto;
+            padding: 25px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: var(--primary-color);
+        }
+
+        .close-btn {
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-body input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .confirm-btn {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .cancel-btn {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
         /* হেডার স্টাইল */
         header {
             display: flex;
@@ -355,6 +428,25 @@
         </div>
     </div>
 
+    <!-- অপারেশন পাসওয়ার্ড মডাল -->
+    <div id="operation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>অপারেশন কনফার্মেশন</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>এই ডিভাইসটি নিয়ন্ত্রণ করতে অপারেশন পাসওয়ার্ড দিন:</p>
+                <input type="password" id="operation-password" placeholder="অপারেশন পাসওয়ার্ড">
+                <div id="operation-error" class="error-message">ভুল পাসওয়ার্ড! অপারেশন বাতিল করা হয়েছে।</div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancel-operation">বাতিল</button>
+                <button class="confirm-btn" id="confirm-operation">কনফার্ম</button>
+            </div>
+        </div>
+    </div>
+
     <!-- মূল অ্যাপ্লিকেশন -->
     <div id="app" style="display: none;">
         <header>
@@ -379,15 +471,21 @@
             <!-- পেইজ ১ কন্টেন্ট -->
             <div id="page1-page" class="page-content">
                 <h2>পেইজ ১ - ডিভাইস ১ থেকে ৮</h2>
-                <p>ডিভাইস ১ থেকে ৮ এর কন্ট্রোল প্যানেল</p>
+                <p>ডিভাইস ১ থেকে ৮ এর কন্ট্রোল প্যানেল (মোট ৩২ রিলে)</p>
                 
                 <div class="dashboard">
+                    <!-- ডিভাইস ১ থেকে ৮ এর জন্য কার্ড -->
+                    <!-- প্রতিটি ডিভাইসে ৪টি রিলে -->
+                    <!-- নিচে শুধু ডিভাইস ১ এর উদাহরণ দেওয়া হলো -->
+                    <!-- বাকি ডিভাইসগুলো একই প্যাটার্নে তৈরি করুন -->
+                    
                     <!-- ডিভাইস ১ -->
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">ডিভাইস ১</div>
                             <div class="card-status status-active">এক্টিভ</div>
-                        </div>
+                        
+                      </div>
                         <div class="device-controls">
                             <div class="control-item">
                                 <span class="control-label">
@@ -398,6 +496,11 @@
                                     <input type="checkbox" id="device1-relay1" data-device="device1" data-relay="relay1">
                                     <span class="slider"></span>
                                 </label>
+
+
+
+
+
                             </div>
                             <div class="control-item">
                                 <span class="control-label">
@@ -432,10 +535,14 @@
                         </div>
                     </div>
 
-                    <!-- ডিভাইস ২ -->
+
+
+
+
+<!-- ডিভাইস২-->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">ডিভাইস ২</div>
+                            <div class="card-title">ডিভাইস২</div>
                             <div class="card-status status-active">এক্টিভ</div>
                         </div>
                         <div class="device-controls">
@@ -451,7 +558,7 @@
                             </div>
                             <div class="control-item">
                                 <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device2-relay2-lamp"></i>
+                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device1-relay2-lamp"></i>
                                     রিলে ২
                                 </span>
                                 <label class="toggle-switch">
@@ -482,10 +589,10 @@
                         </div>
                     </div>
 
-                    <!-- ডিভাইস ৩ -->
+<!-- ডিভাইস৩-->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">ডিভাইস ৩</div>
+                            <div class="card-title">ডিভাইস৩</div>
                             <div class="card-status status-active">এক্টিভ</div>
                         </div>
                         <div class="device-controls">
@@ -501,7 +608,7 @@
                             </div>
                             <div class="control-item">
                                 <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device3-relay2-lamp"></i>
+                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device1-relay3-lamp"></i>
                                     রিলে ২
                                 </span>
                                 <label class="toggle-switch">
@@ -532,10 +639,10 @@
                         </div>
                     </div>
 
-                    <!-- ডিভাইস ৪ -->
+<!-- ডিভাইস৪-->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">ডিভাইস ৪</div>
+                            <div class="card-title">ডিভাইস৪</div>
                             <div class="card-status status-active">এক্টিভ</div>
                         </div>
                         <div class="device-controls">
@@ -551,7 +658,7 @@
                             </div>
                             <div class="control-item">
                                 <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device4-relay2-lamp"></i>
+                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device4-relay3-lamp"></i>
                                     রিলে ২
                                 </span>
                                 <label class="toggle-switch">
@@ -582,10 +689,12 @@
                         </div>
                     </div>
 
-                    <!-- ডিভাইস ৫ -->
+
+
+<!-- ডিভাইস5-->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">ডিভাইস ৫</div>
+                            <div class="card-title">ডিভাইস5</div>
                             <div class="card-status status-active">এক্টিভ</div>
                         </div>
                         <div class="device-controls">
@@ -601,7 +710,7 @@
                             </div>
                             <div class="control-item">
                                 <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device5-relay2-lamp"></i>
+                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device5-relay3-lamp"></i>
                                     রিলে ২
                                 </span>
                                 <label class="toggle-switch">
@@ -625,17 +734,20 @@
                                     রিলে ৪
                                 </span>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="device5-relay4" data-device="device5" data-relay="relay4">
+                                    <input type="checkbox" id="device4-relay5" data-device="device5" data-relay="relay4">
                                     <span class="slider"></span>
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ডিভাইস ৬ -->
+
+
+
+<!-- ডিভাইস6-->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">ডিভাইস ৬</div>
+                            <div class="card-title">ডিভাইস6</div>
                             <div class="card-status status-active">এক্টিভ</div>
                         </div>
                         <div class="device-controls">
@@ -651,7 +763,7 @@
                             </div>
                             <div class="control-item">
                                 <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device6-relay2-lamp"></i>
+                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device6-relay3-lamp"></i>
                                     রিলে ২
                                 </span>
                                 <label class="toggle-switch">
@@ -675,119 +787,32 @@
                                     রিলে ৪
                                 </span>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="device6-relay4" data-device="device6" data-relay="relay4">
+                                    <input type="checkbox" id="device6-relay5" data-device="device6" data-relay="relay4">
                                     <span class="slider"></span>
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ডিভাইস ৭ -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">ডিভাইস ৭</div>
-                            <div class="card-status status-active">এক্টিভ</div>
-                        </div>
-                        <div class="device-controls">
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device7-relay1-lamp"></i>
-                                    রিলে ১
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device7-relay1" data-device="device7" data-relay="relay1">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device7-relay2-lamp"></i>
-                                    রিলে ২
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device7-relay2" data-device="device7" data-relay="relay2">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device7-relay3-lamp"></i>
-                                    রিলে ৩
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device7-relay3" data-device="device7" data-relay="relay3">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device7-relay4-lamp"></i>
-                                    রিলে ৪
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device7-relay4" data-device="device7" data-relay="relay4">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- ডিভাইস ৮ -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">ডিভাইস ৮</div>
-                            <div class="card-status status-active">এক্টিভ</div>
-                        </div>
-                        <div class="device-controls">
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device8-relay1-lamp"></i>
-                                    রিলে ১
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device8-relay1" data-device="device8" data-relay="relay1">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device8-relay2-lamp"></i>
-                                    রিলে ২
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device8-relay2" data-device="device8" data-relay="relay2">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device8-relay3-lamp"></i>
-                                    রিলে ৩
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device8-relay3" data-device="device8" data-relay="relay3">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device8-relay4-lamp"></i>
-                                    রিলে ৪
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device8-relay4" data-device="device8" data-relay="relay4">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////
+
+                    <!-- ডিভাইস ২ থেকে ৮ একইভাবে যোগ করুন -->
+                    <!-- ... -->
+
                 </div>
             </div>
 
             <!-- পেইজ ২ কন্টেন্ট -->
             <div id="page2-page" class="page-content" style="display: none;">
                 <h2>পেইজ ২ - ডিভাইস ৯ থেকে ১৬</h2>
-                <p>ডিভাইস ৯ থেকে ১৬ এর কন্ট্রোল প্যানেল</p>
+                <p>ডিভাইস ৯ থেকে ১৬ এর কন্ট্রোল প্যানেল (মোট ৩২ রিলে)</p>
                 
                 <div class="dashboard">
                     <!-- ডিভাইস ৯ -->
@@ -840,355 +865,9 @@
                         </div>
                     </div>
 
-                    <!-- ডিভাইস ১০ -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">ডিভাইস ১০</div>
-                            <div class="card-status status-active">এক্টিভ</div>
-                        </div>
-                        <div class="device-controls">
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device10-relay1-lamp"></i>
-                                    রিলে ১
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device10-relay1" data-device="device10" data-relay="relay1">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device10-relay2-lamp"></i>
-                                    রিলে ২
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device10-relay2" data-device="device10" data-relay="relay2">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device10-relay3-lamp"></i>
-                                    রিলে ৩
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device10-relay3" data-device="device10" data-relay="relay3">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device10-relay4-lamp"></i>
-                                    রিলে ৪
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device10-relay4" data-device="device10" data-relay="relay4">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- ডিভাইস ১০ থেকে ১৬ একইভাবে যোগ করুন -->
+                    <!-- ... -->
 
-                    <!-- ডিভাইস ১১ -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">ডিভাইস ১১</div>
-                            <div class="card-status status-active">এক্টিভ</div>
-                        </div>
-                        <div class="device-controls">
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device11-relay1-lamp"></i>
-                                    রিলে ১
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device11-relay1" data-device="device11" data-relay="relay1">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device11-relay2-lamp"></i>
-                                    রিলে ২
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device11-relay2" data-device="device11" data-relay="relay2">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device11-relay3-lamp"></i>
-                                    রিলে ৩
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device11-relay3" data-device="device11" data-relay="relay3">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device11-relay4-lamp"></i>
-                                    রিলে ৪
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device11-relay4" data-device="device11" data-relay="relay4">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ডিভাইস ১২ -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">ডিভাইস ১২</div>
-                            <div class="card-status status-active">এক্টিভ</div>
-                        </div>
-                        <div class="device-controls">
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device12-relay1-lamp"></i>
-                                    রিলে ১
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device12-relay1" data-device="device12" data-relay="relay1">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device12-relay2-lamp"></i>
-                                    রিলে ২
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device12-relay2" data-device="device12" data-relay="relay2">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device12-relay3-lamp"></i>
-                                    রিলে ৩
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device12-relay3" data-device="device12" data-relay="relay3">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device12-relay4-lamp"></i>
-                                    রিলে ৪
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device12-relay4" data-device="device12" data-relay="relay4">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ডিভাইস ১৩ -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">ডিভাইস ১৩</div>
-                            <div class="card-status status-active">এক্টিভ</div>
-                        </div>
-                        <div class="device-controls">
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device13-relay1-lamp"></i>
-                                    রিলে ১
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device13-relay1" data-device="device13" data-relay="relay1">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device13-relay2-lamp"></i>
-                                    রিলে ২
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device13-relay2" data-device="device13" data-relay="relay2">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device13-relay3-lamp"></i>
-                                    রিলে ৩
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device13-relay3" data-device="device13" data-relay="relay3">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device13-relay4-lamp"></i>
-                                    রিলে ৪
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device13-relay4" data-device="device13" data-relay="relay4">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ডিভাইস ১৪ -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">ডিভাইস ১৪</div>
-                            <div class="card-status status-active">এক্টিভ</div>
-                        </div>
-                        <div class="device-controls">
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device14-relay1-lamp"></i>
-                                    রিলে ১
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device14-relay1" data-device="device14" data-relay="relay1">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device14-relay2-lamp"></i>
-                                    রিলে ২
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device14-relay2" data-device="device14" data-relay="relay2">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device14-relay3-lamp"></i>
-                                    রিলে ৩
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device14-relay3" data-device="device14" data-relay="relay3">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device14-relay4-lamp"></i>
-                                    রিলে ৪
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device14-relay4" data-device="device14" data-relay="relay4">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ডিভাইস ১৫ -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">ডিভাইস ১৫</div>
-                            <div class="card-status status-active">এক্টিভ</div>
-                        </div>
-                        <div class="device-controls">
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device15-relay1-lamp"></i>
-                                    রিলে ১
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device15-relay1" data-device="device15" data-relay="relay1">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device15-relay2-lamp"></i>
-                                    রিলে ২
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device15-relay2" data-device="device15" data-relay="relay2">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device15-relay3-lamp"></i>
-                                    রিলে ৩
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device15-relay3" data-device="device15" data-relay="relay3">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device15-relay4-lamp"></i>
-                                    রিলে ৪
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device15-relay4" data-device="device15" data-relay="relay4">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ডিভাইস ১৬ -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">ডিভাইস ১৬</div>
-                            <div class="card-status status-active">এক্টিভ</div>
-                        </div>
-                        <div class="device-controls">
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device16-relay1-lamp"></i>
-       BISNU রিলে ১
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device16-relay1" data-device="device16" data-relay="relay1">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device16-relay2-lamp"></i>
-                                    রিলে ২
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device16-relay2" data-device="device16" data-relay="relay2">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device16-relay3-lamp"></i>
-                                    রিলে ৩
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device16-relay3" data-device="device16" data-relay="relay3">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                            <div class="control-item">
-                                <span class="control-label">
-                                    <i class="fas fa-lightbulb lamp-icon lamp-off" id="device16-relay4-lamp"></i>
-                                    রিলে ৪
-                                </span>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="device16-relay4" data-device="device16" data-relay="relay4">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1196,8 +875,6 @@
 
     <script>
         // Firebase কনফিগারেশন
-
-
 const firebaseConfig = {
   apiKey: "AIzaSyCq2YFjQUB3ZjgkmXE9SSaqBA8gjdqPpz8",
   authDomain: "home-server-1-dd22d.firebaseapp.com",
@@ -1207,8 +884,6 @@ const firebaseConfig = {
   messagingSenderId: "371310153065",
   appId: "1:371310153065:web:75ad4de24795a4513c01f8"
 };
-
-
 
         // Firebase ইনিশিয়ালাইজ
         firebase.initializeApp(firebaseConfig);
@@ -1225,9 +900,25 @@ const firebaseConfig = {
         const navLinks = document.querySelectorAll('.nav-link');
         const pageContents = document.querySelectorAll('.page-content');
         const toggleSwitches = document.querySelectorAll('.toggle-switch input');
+        
+        // অপারেশন মডাল সম্পর্কিত এলিমেন্টস
+        const operationModal = document.getElementById('operation-modal');
+        const operationPasswordInput = document.getElementById('operation-password');
+        const operationError = document.getElementById('operation-error');
+        const confirmOperationBtn = document.getElementById('confirm-operation');
+        const cancelOperationBtn = document.getElementById('cancel-operation');
+        const closeModalBtn = document.querySelector('.close-btn');
 
-        // সঠিক পাসওয়ার্ড (স্পেস এবং স্পেশাল ক্যারেক্টার সহ)
-        const correctPassword = "#u n*S*ibg u@";
+        // পাসওয়ার্ড সেটিংস
+        const correctPassword = "#u n*S*ibg u@"; // লগিন পাসওয়ার্ড
+        const operationPassword = "123"; // অপারেশন পাসওয়ার্ড
+
+        // বর্তমান অপারেশন ট্র্যাক করার ভেরিয়েবল
+        let currentOperation = {
+            device: null,
+            relay: null,
+            value: null
+        };
 
         // লগিন ফাংশন
         loginBtn.addEventListener('click', () => {
@@ -1278,15 +969,61 @@ const firebaseConfig = {
             });
         });
 
-        // টগল সুইচ কন্ট্রোল
+        // টগল সুইচ কন্ট্রোল - অপারেশন কনফার্মেশন মডাল দেখাবে
         toggleSwitches.forEach(toggle => {
-            toggle.addEventListener('change', () => {
-                const device = toggle.getAttribute('data-device');
-                const relay = toggle.getAttribute('data-relay');
-                const value = toggle.checked ? 'on' : 'off';
+            toggle.addEventListener('change', (e) => {
+                currentOperation = {
+                    device: toggle.getAttribute('data-device'),
+                    relay: toggle.getAttribute('data-relay'),
+                    value: toggle.checked ? 'on' : 'off'
+                };
                 
-                updateDeviceRelay(device, relay, value);
+                // মডাল দেখান
+                operationModal.style.display = 'block';
+                operationPasswordInput.value = '';
+                operationError.style.display = 'none';
+                
+                // টগলকে পূর্বের অবস্থানে ফিরিয়ে দিন যতক্ষণ না অপারেশন কনফার্ম হয়
+                toggle.checked = !toggle.checked;
             });
+        });
+
+        // অপারেশন কনফার্মেশন
+        confirmOperationBtn.addEventListener('click', () => {
+            const enteredPassword = operationPasswordInput.value;
+            
+            if (enteredPassword === operationPassword) {
+                // পাসওয়ার্ড সঠিক হলে অপারেশন সম্পাদন
+                updateDeviceRelay(currentOperation.device, currentOperation.relay, currentOperation.value);
+                operationModal.style.display = 'none';
+                
+                // টগল অবস্থা আপডেট করুন
+                const toggle = document.getElementById(`${currentOperation.device}-${currentOperation.relay}`);
+                if (toggle) {
+                    toggle.checked = currentOperation.value === 'on';
+                }
+            } else {
+                // ভুল পাসওয়ার্ড
+                operationError.style.display = 'block';
+                operationPasswordInput.value = '';
+            }
+        });
+
+        // অপারেশন বাতিল
+        cancelOperationBtn.addEventListener('click', () => {
+            operationModal.style.display = 'none';
+        });
+
+        // মডাল বন্ধ করুন
+        closeModalBtn.addEventListener('click', () => {
+            operationModal.style.display = 'none';
+        });
+
+        // মডালের বাইরে ক্লিক করলে বন্ধ করুন
+        window.addEventListener('click', (e) => {
+            if (e.target === operationModal) {
+                operationModal.style.display = 'none';
+            }
         });
 
         // Firebase থেকে ডিভাইস স্ট্যাটাস আপডেট
@@ -1360,34 +1097,6 @@ const firebaseConfig = {
             
             // Firebase লিসেনার সেট আপ করুন
             listenForDeviceUpdates();
-            
-            // ডিভাইস সিমুলেশন (ডেমো উদ্দেশ্যে)
-            simulateDeviceData();
-        }
-
-        // ডিভাইস ডেটা সিমুলেশন (ডেমো)
-        function simulateDeviceData() {
-            setInterval(() => {
-                const devices = [];
-                for (let i = 1; i <= 16; i++) {
-                    devices.push(`device${i}`);
-                }
-                
-                const randomDevice = devices[Math.floor(Math.random() * devices.length)];
-                const randomRelay = `relay${Math.floor(Math.random() * 4) + 1}`;
-                const randomAction = Math.random() > 0.5 ? 'on' : 'off';
-                
-                // 20% সম্ভাবনা যে ডিভাইস স্ট্যাটাস পরিবর্তন হবে
-                if (Math.random() > 0.8) {
-                    updateDeviceRelay(randomDevice, randomRelay, randomAction);
-                }
-                
-                // 10% সম্ভাবনা যে ডিভাইস কানেকশন স্ট্যাটাস পরিবর্তন হবে
-                if (Math.random() > 0.9) {
-                    const newStatus = Math.random() > 0.5 ? 'active' : 'inactive';
-                    database.ref(`devices/${randomDevice}/status`).set(newStatus);
-                }
-            }, 5000);
         }
 
         // পেইজ লোড হলে চেক করুন ব্যবহারকারী লগিন আছে কিনা
