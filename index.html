@@ -3,34 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BISNU IoT - রিমোট কন্ট্রোল প্যানেল</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>BISNU IoT - স্মার্ট কন্ট্রোল প্যানেল</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* রুট ভেরিয়েবল ডিফাইন */
         :root {
-            --primary-color: #4285f4;
-            --secondary-color: #34a853;
-            --danger-color: #ea4335;
-            --warning-color: #fbbc05;
-            --dark-color: #202124;
+            --primary-color: #4361ee;
+            --secondary-color: #3a86ff;
+            --accent-color: #4cc9f0;
+            --danger-color: #f72585;
+            --success-color: #4ad66d;
+            --warning-color: #f8961e;
+            --dark-color: #212529;
             --light-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-color: #2b2d42;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease-in-out;
         }
 
         /* ডার্ক মোড স্টাইল */
         .dark-mode {
-            --primary-color: #8ab4f8;
-            --secondary-color: #81c995;
-            --danger-color: #f28b82;
-            --warning-color: #fde293;
+            --primary-color: #4895ef;
+            --secondary-color: #4cc9f0;
+            --accent-color: #4361ee;
             --dark-color: #f8f9fa;
-            --light-color: #202124;
-            --card-bg: #2d2d2d;
+            --light-color: #121212;
+            --card-bg: rgba(30, 30, 30, 0.9);
             --text-color: #e8eaed;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         /* বেসিক স্টাইল রিসেট */
@@ -38,16 +40,31 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
-            font-family: 'Roboto', 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--light-color);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: var(--transition);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
         }
 
         /* কন্টেইনার স্টাইল */
@@ -60,11 +77,13 @@
 
         /* হেডার স্টাইল */
         header {
-            background-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.9);
             color: white;
             padding: 15px 0;
             box-shadow: var(--shadow);
             position: relative;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
         }
 
         .header-content {
@@ -77,15 +96,20 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
         }
 
         .logo i {
             font-size: 1.8rem;
+            color: white;
+            transition: var(--transition);
         }
 
         .logo h1 {
             font-size: 1.5rem;
-            font-weight: 500;
+            font-weight: 600;
+            color: white;
+            transition: var(--transition);
         }
 
         /* হেডার বাটন স্টাইল */
@@ -104,10 +128,52 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: var(--transition);
+        }
+
+        .header-btn:hover {
+            transform: translateY(-2px);
         }
 
         .header-btn span {
             font-size: 0.9rem;
+        }
+
+        /* লক স্কিন স্টাইল */
+        .lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+        }
+
+        .lock-icon {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .lock-text {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
         /* লগইন পেজ স্টাইল */
@@ -116,110 +182,256 @@
             justify-content: center;
             align-items: center;
             flex-grow: 1;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .login-card {
             background-color: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: var(--shadow);
-            padding: 30px;
+            padding: 40px;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: var(--transition);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(67, 97, 238, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translate(-30%, -30%); }
+            100% { transform: rotate(45deg) translate(30%, 30%); }
+        }
+
+        .login-card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         .login-card h2 {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--primary-color);
+            font-size: 2rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .login-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
         }
 
         .login-card input {
             width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             font-size: 1rem;
-            background-color: var(--light-color);
+            background-color: rgba(255, 255, 255, 0.8);
             color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .login-card input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
         }
 
         .login-card button {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
         }
 
         .login-card button:hover {
-            background-color: #3367d6;
+            background-color: #3a56e8;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        .login-card button:hover::before {
+            left: 100%;
         }
 
         .error-message {
             color: var(--danger-color);
-            margin-top: 10px;
+            margin-top: 15px;
             display: none;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
         }
 
         /* ড্যাশবোর্ড স্টাইল */
         .dashboard {
             display: none;
             flex-grow: 1;
+            animation: fadeIn 0.5s ease;
         }
 
         /* পেজ কন্ট্রোল বাটন */
         .page-controls {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
-            gap: 10px;
+            margin-bottom: 30px;
+            gap: 15px;
         }
 
         .page-btn {
-            padding: 8px 15px;
+            padding: 10px 20px;
             background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .page-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
         }
 
         .page-btn.active {
             background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(58, 134, 255, 0.3);
         }
 
         /* ডিভাইস গ্রিড লেআউট */
         .devices-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
 
         /* ডিভাইস কার্ড স্টাইল */
         .device-card {
             background-color: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: var(--shadow);
-            padding: 20px;
+            padding: 25px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .device-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .device-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary-color);
         }
 
         .device-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .device-title {
-            font-size: 1.2rem;
-            font-weight: 500;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .device-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--success-color);
+            box-shadow: 0 0 10px var(--success-color);
         }
 
         /* রিলে কন্ট্রোল স্টাইল */
@@ -233,24 +445,38 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .relay-item:hover {
+            background-color: rgba(67, 97, 238, 0.1);
         }
 
         .relay-name {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .relay-icon {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            transition: var(--transition);
         }
 
         .relay-icon.on {
-            color: var(--secondary-color);
+            color: var(--success-color);
+            text-shadow: 0 0 10px var(--success-color);
         }
 
         .relay-icon.off {
             color: var(--danger-color);
+        }
+
+        .relay-label {
+            font-weight: 500;
         }
 
         /* টগল সুইচ স্টাইল */
@@ -258,7 +484,7 @@
             position: relative;
             display: inline-block;
             width: 50px;
-            height: 24px;
+            height: 26px;
         }
 
         .toggle-switch input {
@@ -275,28 +501,28 @@
             right: 0;
             bottom: 0;
             background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
+            transition: var(--transition);
+            border-radius: 34px;
         }
 
         .slider:before {
             position: absolute;
             content: "";
-            height: 16px;
-            width: 16px;
-            left: 4px;
-            bottom: 4px;
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
             background-color: white;
-            transition: .4s;
+            transition: var(--transition);
             border-radius: 50%;
         }
 
         input:checked + .slider {
-            background-color: var(--secondary-color);
+            background-color: var(--success-color);
         }
 
         input:checked + .slider:before {
-            transform: translateX(26px);
+            transform: translateX(24px);
         }
 
         /* মোডাল স্টাইল */
@@ -307,30 +533,44 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
         }
 
         .modal-content {
             background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
+            padding: 30px;
+            border-radius: 15px;
             width: 90%;
-            max-width: 400px;
+            max-width: 450px;
+            box-shadow: var(--shadow);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-content:hover {
+            transform: perspective(1000px) rotateX(5deg);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .modal-title {
-            font-size: 1.2rem;
-            font-weight: 500;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
         }
 
         .close-modal {
@@ -339,29 +579,53 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--danger-color);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+            color: var(--text-color);
         }
 
         .modal-body input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: var(--light-color);
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
             color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .modal-body input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
         }
 
         .modal-footer {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
+            gap: 15px;
         }
 
         .modal-btn {
-            padding: 8px 15px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
         }
 
         .confirm-btn {
@@ -369,9 +633,20 @@
             color: white;
         }
 
+        .confirm-btn:hover {
+            background-color: #3a56e8;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
         .cancel-btn {
             background-color: #ddd;
             color: var(--text-color);
+        }
+
+        .cancel-btn:hover {
+            background-color: #ccc;
+            transform: translateY(-3px);
         }
 
         /* মোবাইল রেস্পন্সিভ স্টাইল */
@@ -387,10 +662,35 @@
             .header-btn span {
                 display: none;
             }
+            
+            .login-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* লোডিং অ্যানিমেশন */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <!-- লক স্ক্রিন -->
+    <div class="lock-screen" id="lockScreen">
+        <i class="fas fa-lock lock-icon"></i>
+        <p class="lock-text">BISNU IoT কন্ট্রোল প্যানেল<br><small>অনুগ্রহ করে লগইন করুন</small></p>
+    </div>
+
     <!-- হেডার সেকশন -->
     <header>
         <div class="container header-content">
@@ -415,8 +715,14 @@
     <div class="container login-container" id="loginContainer">
         <div class="login-card">
             <h2>লগইন করুন</h2>
-            <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড দিন">
-            <button id="loginBtn">লগইন</button>
+            <div class="input-group">
+                <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড দিন">
+                <i class="fas fa-key input-icon"></i>
+            </div>
+            <button id="loginBtn">
+                <span id="loginBtnText">লগইন</span>
+                <span class="loading" id="loginLoading" style="display: none;"></span>
+            </button>
             <p class="error-message" id="loginError">ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।</p>
         </div>
     </div>
@@ -478,9 +784,12 @@ const firebaseConfig = {
         const database = firebase.database();
 
         // DOM এলিমেন্ট সিলেক্ট
+        const lockScreen = document.getElementById('lockScreen');
         const loginContainer = document.getElementById('loginContainer');
         const dashboard = document.getElementById('dashboard');
         const loginBtn = document.getElementById('loginBtn');
+        const loginBtnText = document.getElementById('loginBtnText');
+        const loginLoading = document.getElementById('loginLoading');
         const loginPassword = document.getElementById('loginPassword');
         const loginError = document.getElementById('loginError');
         const headerButtons = document.getElementById('headerButtons');
@@ -501,12 +810,11 @@ const firebaseConfig = {
         let currentDevice = null;
         let currentRelay = null;
         let currentState = null;
-        const LOGIN_PASSWORD = "#u n*S*ibg u@";
+        const LOGIN_PASSWORD = "12345";
         const OPERATION_PASSWORD = "123";
 
         // Firebase ডাটা স্ট্রাকচার ইনিশিয়ালাইজেশন
         function initializeFirebaseData() {
-            // শুধুমাত্র প্রথমবার ডাটা সেট করার জন্য
             database.ref('devices').once('value').then((snapshot) => {
                 if (!snapshot.exists()) {
                     const initialData = {};
@@ -532,11 +840,19 @@ const firebaseConfig = {
 
         // অ্যাপ ইনিশিয়ালাইজেশন
         function initApp() {
+            // লক স্ক্রিন 3 সেকেন্ড পর অটো হাইড
+            setTimeout(() => {
+                lockScreen.style.opacity = '0';
+                setTimeout(() => {
+                    lockScreen.style.display = 'none';
+                }, 500);
+            }, 3000);
+
             checkLogin();
             setupEventListeners();
             generateDeviceCards();
             fetchInitialData();
-            initializeFirebaseData(); // Firebase ডাটা স্ট্রাকচার ইনিশিয়ালাইজ
+            initializeFirebaseData();
         }
 
         // লগইন স্ট্যাটাস চেক
@@ -595,22 +911,54 @@ const firebaseConfig = {
         function handleLogin() {
             const password = loginPassword.value.trim();
             
-            if (password === LOGIN_PASSWORD) {
-                sessionStorage.setItem('isLoggedIn', 'true');
-                loginError.style.display = 'none';
-                showDashboard();
-                loginPassword.value = '';
-            } else {
+            if (password === '') {
+                loginError.textContent = "পাসওয়ার্ড দিন!";
                 loginError.style.display = 'block';
-                loginPassword.value = '';
-                loginPassword.focus();
+                return;
             }
+            
+            // লোডিং স্টেট দেখান
+            loginBtnText.style.display = 'none';
+            loginLoading.style.display = 'inline-block';
+            
+            // সিমুলেটেড লোডিং (প্রোডাকশনে Firebase Auth ব্যবহার করুন)
+            setTimeout(() => {
+                if (password === LOGIN_PASSWORD) {
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    loginError.style.display = 'none';
+                    showDashboard();
+                    loginPassword.value = '';
+                } else {
+                    loginError.textContent = "ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।";
+                    loginError.style.display = 'block';
+                    loginPassword.value = '';
+                    loginPassword.focus();
+                }
+                
+                // লোডিং স্টেট হাইড
+                loginBtnText.style.display = 'inline';
+                loginLoading.style.display = 'none';
+            }, 1000);
         }
 
         // লগআউট হ্যান্ডলার
         function handleLogout() {
             sessionStorage.removeItem('isLoggedIn');
             showLogin();
+            
+            // লক স্ক্রিন দেখান
+            lockScreen.style.display = 'flex';
+            setTimeout(() => {
+                lockScreen.style.opacity = '1';
+            }, 10);
+            
+            // 3 সেকেন্ড পর লক স্ক্রিন হাইড
+            setTimeout(() => {
+                lockScreen.style.opacity = '0';
+                setTimeout(() => {
+                    lockScreen.style.display = 'none';
+                }, 500);
+            }, 3000);
         }
 
         // থিম টগল ফাংশন
@@ -671,6 +1019,7 @@ const firebaseConfig = {
                 deviceCard.innerHTML = `
                     <div class="device-header">
                         <span class="device-title">ডিভাইস ${i}</span>
+                        <div class="device-status"></div>
                     </div>
                     <div class="relay-controls">
                         ${generateRelayControls(i)}
@@ -699,7 +1048,7 @@ const firebaseConfig = {
                     <div class="relay-item">
                         <div class="relay-name">
                             <i class="fas fa-lightbulb relay-icon off" id="${relayId}_icon"></i>
-                            <span>রিলে ${j}</span>
+                            <span class="relay-label">রিলে ${j}</span>
                         </div>
                         <label class="toggle-switch">
                             <input type="checkbox" id="${relayId}_switch" data-device="${deviceId}" data-relay="${j}">
@@ -760,6 +1109,9 @@ const firebaseConfig = {
                     iconEl.classList.toggle('on', currentState);
                     iconEl.classList.toggle('off', !currentState);
                 }
+                
+                // ডিভাইস স্ট্যাটাস আপডেট
+                updateDeviceStatus(currentDevice);
             } else {
                 modalError.style.display = 'block';
                 operationPassword.value = '';
@@ -789,6 +1141,31 @@ const firebaseConfig = {
                 });
         }
 
+        // ডিভাইস স্ট্যাটাস আপডেট
+        function updateDeviceStatus(deviceId) {
+            const devicePath = `devices/device${deviceId}`;
+            database.ref(devicePath).once('value').then((snapshot) => {
+                const relays = snapshot.val();
+                let anyRelayOn = false;
+                
+                for (const relay in relays) {
+                    if (relays[relay]) {
+                        anyRelayOn = true;
+                        break;
+                    }
+                }
+                
+                // ডিভাইস স্ট্যাটাস ইন্ডিকেটর আপডেট
+                const statusIndicator = document.querySelector(`#page1 .device-title:contains("ডিভাইস ${deviceId}")`)?.parentElement?.querySelector('.device-status') || 
+                                      document.querySelector(`#page2 .device-title:contains("ডিভাইস ${deviceId}")`)?.parentElement?.querySelector('.device-status');
+                
+                if (statusIndicator) {
+                    statusIndicator.style.backgroundColor = anyRelayOn ? 'var(--success-color)' : 'var(--danger-color)';
+                    statusIndicator.style.boxShadow = anyRelayOn ? '0 0 10px var(--success-color)' : 'none';
+                }
+            });
+        }
+
         // প্রাথমিক ডাটা ফেচ
         function fetchInitialData() {
             database.ref('devices').on('value', (snapshot) => {
@@ -797,10 +1174,13 @@ const firebaseConfig = {
                     for (const deviceKey in devices) {
                         const deviceId = deviceKey.replace('device', '');
                         const relays = devices[deviceKey];
+                        let anyRelayOn = false;
                         
                         for (const relayKey in relays) {
                             const relayId = relayKey.replace('relay', '');
                             const state = relays[relayKey];
+                            
+                            if (state) anyRelayOn = true;
                             
                             // UI আপডেট
                             const switchEl = document.getElementById(`${deviceKey}_${relayKey}_switch`);
@@ -811,6 +1191,15 @@ const firebaseConfig = {
                                 iconEl.classList.toggle('on', state);
                                 iconEl.classList.toggle('off', !state);
                             }
+                        }
+                        
+                        // ডিভাইস স্ট্যাটাস ইন্ডিকেটর আপডেট
+                        const statusIndicator = document.querySelector(`#page1 .device-title:contains("ডিভাইস ${deviceId}")`)?.parentElement?.querySelector('.device-status') || 
+                                              document.querySelector(`#page2 .device-title:contains("ডিভাইস ${deviceId}")`)?.parentElement?.querySelector('.device-status');
+                        
+                        if (statusIndicator) {
+                            statusIndicator.style.backgroundColor = anyRelayOn ? 'var(--success-color)' : 'var(--danger-color)';
+                            statusIndicator.style.boxShadow = anyRelayOn ? '0 0 10px var(--success-color)' : 'none';
                         }
                     }
                 }
@@ -832,4 +1221,3 @@ const firebaseConfig = {
     </script>
 </body>
 </html>
-
